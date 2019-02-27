@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3-alpine
+FROM python:3.6
 
 MAINTAINER jmhansen@fastmail.com
 
@@ -8,14 +8,15 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Create and set working directory
-RUN mkdir /code
-WORKDIR /code
+RUN mkdir /src
+WORKDIR /src
 
 # Copy contents of current directory into working directory
-ADD . /code/
+ADD . /src/
 
 # install pipenv and install Python packages
 RUN pip install pipenv
-RUN pipenv install --system --deploy
+RUN pipenv install --deploy --python=`which python3`
 
-CMD ["python", "app/main.py"]
+ENV FLASK_ENV=docker
+EXPOSE 5000
