@@ -5,4 +5,4 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def hello():
-    return 'Hello world!'
+    return 'NPR Interludes'
